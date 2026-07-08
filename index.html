@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incredible India — Discover the Beauty</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: #0a0a0a;
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        /* ─── Hero Section ─── */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(255,153,0,0.15), transparent 70%);
+            top: -100px; right: -100px;
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0,200,150,0.1), transparent 70%);
+            bottom: -150px; left: -100px;
+            border-radius: 50%;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-content .subtitle {
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            color: #ff9900;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            background: linear-gradient(to right, #ffffff, #ff9900);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-content .tagline {
+            font-size: 1.25rem;
+            color: #ccc;
+            margin-top: 25px;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: #ff9900;
+            font-size: 1.5rem;
+            z-index: 2;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(12px); }
+        }
+
+        /* ─── Section Styling ─── */
+        .section-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .section-header p {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+        .section-header .accent-line {
+            width: 60px; height: 3px;
+            background: #ff9900;
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ─── Place Cards ─── */
+        .place {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+            gap: 50px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 0.8s forwards;
+        }
+        .place:nth-child(even) { flex-direction: row-reverse; }
+        .place:nth-child(1) { animation-delay: 0.1s; }
+        .place:nth-child(2) { animation-delay: 0.2s; }
+        .place:nth-child(3) { animation-delay: 0.3s; }
+        .place:nth-child(4) { animation-delay: 0.4s; }
+        .place:nth-child(5) { animation-delay: 0.5s; }
+        .place:nth-child(6) { animation-delay: 0.6s; }
+        .place:nth-child(7) { animation-delay: 0.7s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .place-img {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .place-img img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .place-img:hover img { transform: scale(1.05); }
+        .place-img .overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            pointer-events: none;
+        }
+
+        .place-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .place-content .number {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(255,153,0,0.12);
+            line-height: 1;
+            margin-bottom: -20px;
+        }
+        .place-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        .place-content .location {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #ff9900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .place-content p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: #bbb;
+            font-weight: 300;
+        }
+        .place-content .highlight {
+            display: inline-flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .place-content .highlight span {
+            background: rgba(255,153,0,0.1);
+            border: 1px solid rgba(255,153,0,0.25);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #ff9900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ─── Divider ─── */
+        .divider {
+            width: 1px; height: 80px;
+            background: linear-gradient(to bottom, transparent, #ff9900, transparent);
+            margin: 20px auto;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #050505;
+            margin-top: 60px;
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        footer p {
+            color: #777;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        footer .heart { color: #ff9900; }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .place, .place:nth-child(even) {
+                flex-direction: column;
+                gap: 25px;
+                padding: 0 20px;
+            }
+            .place-img img { height: 260px; }
+            .place-content .number { font-size: 3.5rem; }
+            .place-content h3 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="subtitle">✦ Explore the Wonders ✦</p>
+            <h1>Incredible India</h1>
+            <p class="tagline">A land of timeless beauty, ancient heritage, and breathtaking landscapes — where every corner tells a story written in stone, water, and light.</p>
+        </div>
+        <div class="scroll-indicator">▼</div>
+    </section>
+
+    <!-- ═══════════ Section Header ═══════════ -->
+    <div class="section-header">
+        <h2>Must-Visit Destinations</h2>
+        <p>Seven jewels of India that will leave you spellbound</p>
+        <div class="accent-line"></div>
+    </div>
+
+    <!-- ═══════════ PLACE 1 — Taj Mahal ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" alt="Taj Mahal at sunrise">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">01</div>
+            <h3>Taj Mahal</h3>
+            <span class="location">📍 Agra, Uttar Pradesh</span>
+            <p>Rising like a dream from the banks of the Yamuna, the Taj Mahal is the world's most luminous monument to love. Emperor Shah Jahan commissioned this ivory-white marble mausoleum in 1632 in memory of his beloved wife Mumtaz Mahal. At dawn, the marble blushes pink; at noon it gleams white; and under moonlight it shimmers with an ethereal blue glow. Every inch is adorned with intricate pietra dura inlay — semi-precious stones woven into floral arabesques of astonishing precision.</p>
+            <div class="highlight">
+                <span>UNESCO Heritage</span>
+                <span>Wonder of the World</span>
+                <span>Mughal Architecture</span>
+            </div>
+        </div>
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PLACE 2 — Jaipur ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80" alt="Hawa Mahal, Jaipur">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">02</div>
+            <h3>Jaipur — The Pink City</h3>
+            <span class="location">📍 Rajasthan</span>
+            <p>Jaipur wraps you in a warm embrace of terracotta pink — an entire city painted in the colour of hospitality. The iconic Hawa Mahal, with its 953 honeycomb windows, was designed so royal women could observe street life unseen. Beyond it, the Amber Fort crowns the Aravalli hills like a golden crown, its Sheesh Mahal (Mirror Palace) reflecting a thousand tiny flames from a single candle. Jaipur is where royal grandeur meets bustling bazaars filled with block-printed textiles, gemstones, and the aroma of dal baati churma.</p>
+            <div class="highlight">
+                <span>Royal Heritage</span>
+                <span>Amber Fort</span>
+                <span>Hawa Mahal</span>
+            </div>
+        </div>
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PLACE 3 — Varanasi ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=800&q=80" alt="Varanasi Ghats at evening">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">03</div>
+            <h3>Varanasi — The Eternal City</h3>
+            <span class="location">📍 Uttar Pradesh</span>
+            <p>Varanasi is not merely a city — it is an experience that rewrites the soul. One of the oldest continuously inhabited cities on Earth, it pulses with the rhythms of life, death, and rebirth along the sacred ghats of the Ganges. As dusk falls, the Ganga Aarti ceremony at Dashashwamedh Ghat transforms the riverbank into a theatre of fire, chanting, and incense. Thousands of oil lamps float downstream like earthbound stars, while temple bells echo across the water in a symphony of devotion that has remained unchanged for millennia.</p>
+            <div class="highlight">
+                <span>Spiritual Capital</span>
+                <span>Ganga Aarti</span>
+                <span>Ancient Temples</span>
+            </div>
+        </div>
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PLACE 4 — Kerala ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80" alt="Kerala Backwaters with houseboat">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">04</div>
+            <h3>Kerala — God's Own Country</h3>
+            <span class="location">📍 Southern India</span>
+            <p>Kerala is where the earth decided to show off. A labyrinth of emerald backwaters winds through swaying coconut palms, while traditional kettuvallam houseboats glide silently over mirror-still lagoons. The misty hills of Munnar unfurl endless carpets of tea plantations in every shade of green imaginable. Kathakali dancers paint their faces into living mythology, and the ancient science of Ayurveda has been perfected here over 3,000 years. From the sun-drenched beaches of Kovalam to the wildlife sanctuaries of Periyar, Kerala is nature's own masterpiece.</p>
+            <div class="highlight">
+                <span>Backwaters</span>
+                <span>Ayurveda</span>
+                <span>Tea Plantations</span>
+            </div>
+        </div>
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PLACE 5 — Ladakh ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80" alt="Pangong Lake in Ladakh">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">05</div>
+            <h3>Ladakh — The Land of High Passes</h3>
+            <span class="location">📍 Union Territory</span>
+            <p>Perched at the roof of the world, Ladakh is a realm of stark, otherworldly beauty. The legendary Pangong Tso lake shifts through impossible shades of blue as sunlight dances across its 134-kilometer expanse at 14,000 feet. Ancient Buddhist monasteries cling to dramatic cliff faces, their prayer flags sending blessings into the thin Himalayan air. The Nubra Valley offers surreal landscapes — sand dunes where double-humped Bactrian camels roam beneath snow-capped peaks. Ladakh doesn't just take your breath away — at this altitude, it quite literally does.</p>
+            <div class="highlight">
+                <span>Pangong Lake</span>
+                <span>Monasteries</span>
+                <span>Khardung La Pass</span>
+            </div>
+        </div>
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PLACE 6 — Hampi ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1590050752117-238cb20e10a4?w=800&q=80" alt="Stone Chariot at Hampi">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">06</div>
+            <h3>Hampi — Ruins of a Forgotten Empire</h3>
+            <span class="location">📍 Karnataka</span>
+            <p>Scattered across a surreal boulder-strewn landscape, the ruins of Hampi whisper tales of the mighty Vijayanagara Empire — once the second-largest city in the medieval world. The iconic stone chariot at the Vittala Temple complex stands frozen in time, its musical pillars producing distinct notes when tapped. Sunrise over the Tungabhadra river paints the ancient granite boulders in molten gold, while the Virupaksha Temple — still an active place of worship — has stood sentinel for over seven centuries. Hampi is where history and surrealism collide.</p>
+            <div class="highlight">
+                <span>UNESCO Heritage</span>
+                <span>Vijayanagara Empire</span>
+                <span>Stone Chariot</span>
+            </div>
+        </div>
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- ═══════════ PLACE 7 — Goa ═══════════ -->
+    <article class="place">
+        <div class="place-img">
+            <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80" alt="Goa Beach at sunset">
+            <div class="overlay"></div>
+        </div>
+        <div class="place-content">
+            <div class="number">07</div>
+            <h3>Goa — Where the Sun Kisses the Sea</h3>
+            <span class="location">📍 Western Coast</span>
+            <p>Goa is India's sun-drenched jewel on the Arabian Sea — a place where golden beaches stretch endlessly, Portuguese-era churches stand in elegant decay, and the scent of vindaloo mingles with salt air. The Basilica of Bom Jesus, a UNESCO World Heritage Site, houses the remains of St. Francis Xavier in baroque splendour. Beyond the beaches, the spice plantations of Ponda offer fragrant walks through cardamom, vanilla, and pepper vines. As evening falls, the sky blazes amber and the beach shacks come alive with seafood, live music, and the gentle rhythm of waves.</p>
+            <div class="highlight">
+                <span>Beaches</span>
+                <span>Portuguese Heritage</span>
+                <span>Nightlife & Culture</span>
+            </div>
+        </div>
+    </article>
+
+    <!-- ═══════════ FOOTER ═══════════ -->
+    <footer>
+        <h3>India Awaits You</h3>
+        <p>Made with <span class="heart">♥</span> — Celebrating the beauty of Incredible India</p>
+    </footer>
+
+</body>
+</html>
